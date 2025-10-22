@@ -1,23 +1,28 @@
+// src/components/molecules/ProductCard.jsx
 import Image from '../atoms/Image';
 import Button from '../atoms/Button';
-
-export default function ProductCard({ product, onAddToCart }) {
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+ 
+ 
+export default function ProductCard({ product /*, onAddToCart */ }) { // Comenta onAddToCart por ahora
   const { id, nombre, precio, imagen } = product;
-
+  const navigate = useNavigate(); // Hook para navegar
+ 
+ 
+  const handleAddToCartClick = () => {
+    // En lugar de añadir al carrito, navega a login
+    navigate('/login');
+  };
+ 
+ 
   return (
-    // Replicando .producto-card con Tailwind
-    <div className="bg-white rounded-2xl shadow-md p-5 text-center w-full max-w-xs transition hover:shadow-lg flex flex-col">
-      <Image
-        src={imagen}
-        alt={nombre}
-        // Replicando .producto-img
-        className="w-32 h-32 object-cover mb-4 rounded-xl shadow-sm mx-auto"
-      />
-      {/* Usando clases directamente en lugar de Title para más control */}
-      <h3 className="text-lg font-semibold text-green-800 mb-2 flex-grow">{nombre}</h3>
-      {/* Replicando .precio */}
-      <p className="text-gray-600 text-sm mb-3">{precio}</p>
-      <Button onClick={() => onAddToCart(product)} className="w-full mt-auto">
+    // Usa clases CSS originales o Tailwind
+    <div className="producto-card"> {/* O clases Tailwind */}
+      <Image src={imagen} alt={nombre} className="producto-img" /> {/* O clases Tailwind */}
+      <h3>{nombre}</h3>
+      <h4 className="precio">{precio}</h4> {/* O clases Tailwind */}
+      {/* Llama a handleAddToCartClick en lugar de onAddToCart */}
+      <Button xx={handleAddToCartClick} className="agregar-carrito"> {/* O clases Tailwind */}
         Agregar al carrito
       </Button>
     </div>

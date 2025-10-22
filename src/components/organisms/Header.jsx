@@ -1,39 +1,32 @@
 import Logo from '../atoms/Logo';
-import NavLink from '../atoms/NavLink';
-// import { useCart } from '../../context/CartContext'; // Ejemplo Contexto Carrito
-// import { useAuth } from '../../context/AuthContext'; // Ejemplo Contexto Auth
-
+import NavLink from '../atoms/NavLink'; // Usaremos el NavLink adaptado
+// import { useCart } from '../../context/CartContext'; // Para contador
+// import { useAuth } from '../../context/AuthContext'; // Para login/logout
+ 
+ 
 export default function Header() {
-  // const { cartItemCount } = useCart(); // Ejemplo
-  // const { user } = useAuth(); // Ejemplo
-
+  // const { cartItemCount } = useCart();
+  // const { user } = useAuth();
+ 
+ 
   return (
-    // Replicando .main-header
-    <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
-      {/* Replicando .header-content */}
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between p-3 px-6">
-        <Logo />
-        {/* Replicando .header-nav */}
-        <nav className="flex items-center gap-1 sm:gap-2"> {/* Ajusta gap según sea necesario */}
-          <NavLink to="/tienda">🛍️ Tienda</NavLink>
-          <NavLink to="/blog">📰 Blog</NavLink>
-          <NavLink to="/perfil">👤 Perfil</NavLink> {/* Podrías mostrarlo condicionalmente si el usuario está logueado */}
-          <NavLink to="/contacto">✉️ Contacto</NavLink>
-          <NavLink to="/carrito" className="relative">
-            🛒 Carrito
-            {/* Ejemplo contador carrito */}
+    <header className="main-header">
+      <div className="header-content">
+        <Logo className="header-logo"/>
+        <nav className="header-nav">
+          <NavLink to="/login" className="nav-link">🔑 Iniciar Sesión</NavLink>
+          <NavLink to="/login" className="nav-link">🛍️ Tienda</NavLink>
+          <NavLink to="/login" className="nav-link">📰 Blog</NavLink>
+          <NavLink to="/login" className="nav-link">👤 Perfil</NavLink>
+          <NavLink to="/login" className="nav-link">✉️ Contacto</NavLink>
+          <NavLink to="/login" className="nav-link">🛒 Carrito
+            {/* Span para el contador como en tu HTML original */}
             {/* {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-                {cartItemCount}
-              </span>
-            )} */}
+                <span id="contador-carrito" style={{background:'#e74c3c',color:'#fff',borderRadius:'50%',padding:'2px 7px',fontSize:'0.9em',verticalAlign:'top',marginLeft:'2px'}}>
+                  {cartItemCount}
+                </span>
+             )} */}
           </NavLink>
-          {/* Ejemplo: Mostrar Login/Logout condicionalmente */}
-          {/* {user ? (
-            <Button onClick={logout} className="ml-2">Salir</Button>
-          ) : (
-            <NavLink to="/login" className="ml-2">🚪 Ingresar</NavLink>
-          )} */}
         </nav>
       </div>
     </header>

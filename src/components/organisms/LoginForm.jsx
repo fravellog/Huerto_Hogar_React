@@ -1,28 +1,25 @@
-import React, { useState } from 'react'; // Necesitas importar useState
-import Input from '../atoms/Input';
-import Button from '../atoms/Button';
-import IconInput from '../molecules/IconInput';
-import Title from '../atoms/Title';
-import { Link } from 'react-router-dom'; // Para el enlace de registro
-
-// Recibe la función de login como prop
+// src/components/organisms/LoginForm.jsx
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+// No necesitas IconInput si styles.css maneja los iconos
+// import IconInput from '../molecules/IconInput';
+ 
+ 
 export default function LoginForm({ onLogin, onGoogleLogin }) {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [errorGeneral, setErrorGeneral] = useState('');
-  const [loading, setLoading] = useState(false); // Para mostrar estado de carga
-
+  const [loading, setLoading] = useState(false);
+ 
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrorGeneral(''); // Limpia errores
-    // Validación simple (puedes mejorarla)
+    setErrorGeneral('');
     if (!usuario || !contrasena) {
       setErrorGeneral('Por favor, ingrese usuario y contraseña.');
       return;
     }
     setLoading(true);
-    // Llama a la función de login pasada por props
-    // Esta función debería manejar la lógica de autenticación y errores
     onLogin({ usuario, contrasena })
       .catch((err) => {
         setErrorGeneral(err.message || 'Error al iniciar sesión.');
@@ -31,63 +28,83 @@ export default function LoginForm({ onLogin, onGoogleLogin }) {
         setLoading(false);
       });
   };
-
+ 
+ 
   return (
-    // Replicando #iniciosesion con Tailwind
-    <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-10 m-4 max-w-sm w-full mx-auto">
-      <form onSubmit={handleSubmit} noValidate>
-        <Title level="h2" className="text-center mb-6">Iniciar Sesión</Title>
-
-        <IconInput
-          id="usuario"
-          label="Usuario"
-          icon="👤" // O usa un icono SVG/FontAwesome
-          type="text"
-          value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
-          placeholder="Tu nombre de usuario"
-          required
-        />
-
-        <IconInput
-          id="contrasena"
-          label="Contraseña"
-          icon="🔒" // O usa un icono SVG/FontAwesome
-          type="password"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          placeholder="Tu contraseña"
-          required
-        />
-
-        {errorGeneral && <p className="text-red-500 text-sm mt-2 mb-3 text-center">{errorGeneral}</p>}
-
-        <Button type="submit" className="w-full mt-4" disabled={loading}>
+    // Usa el ID o clase del contenedor principal del formulario
+    <div id="iniciosesion"> {/* Usa el ID #iniciosesion */}
+      <form onSubmit={handleSubmit} noValidate autoComplete="off">
+        <h2 style={{ textAlign: 'center' }}>Iniciar Sesión</h2> {/* Estilo en línea como en tu HTML */}
+ 
+ 
+        {/* Campo Usuario con icono (estructura del HTML original) */}
+        <div className="campo campo-icono">
+          <label htmlFor="usuario">Usuario</label>
+          <div className="input-icono">
+            <span className="icono">👤</span> {/* Ícono como texto o SVG/FontAwesome */}
+            <input
+              type="text"
+              id="usuario"
+              name="usuario"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              required
+            />
+          </div>
+          {/* Aquí podrías poner el <p id="errorUsuario"> si lo necesitas */}
+        </div>
+ 
+ 
+        {/* Campo Contraseña con icono */}
+        <div className="campo campo-icono">
+          <label htmlFor="contrasena">Contraseña</label>
+          <div className="input-icono">
+            <span className="icono">🔒</span> {/* Ícono */}
+            <input
+              type="password"
+              id="contrasena"
+              name="contrasena"
+              value={contrasena}
+              onChange={(e) => setContrasena(e.target.value)}
+              required
+            />
+          </div>
+           {/* Aquí podrías poner el <p id="errorContrasena"> si lo necesitas */}
+        </div>
+ 
+ 
+        {/* Muestra el error general si existe */}
+        {errorGeneral && <p id="errorGeneral" style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{errorGeneral}</p>}
+ 
+ 
+        {/* Botón Ingresar */}
+        <button type="submit" id="btn-iniciarsesion" disabled={loading} className="btn"> {/* Usa clase .btn */}
           {loading ? 'Ingresando...' : 'Ingresar'}
-        </Button>
+        </button>
+ 
+ 
+        {/* Mensaje de éxito (si lo necesitas) */}
+        {/* <p id="mensaje"></p> */}
       </form>
-
-      {/* Separador */}
-      <div className="my-6 flex items-center justify-center">
-        <span className="border-t border-gray-300 flex-grow"></span>
-        <span className="px-3 text-gray-500 text-sm">O</span>
-        <span className="border-t border-gray-300 flex-grow"></span>
-      </div>
-
-      {/* Botón de Google (requiere setup específico) */}
-      {/* <div id="googleButton" className="flex justify-center"> */}
-      <Button onClick={onGoogleLogin} className="w-full bg-blue-500 hover:bg-blue-600" disabled={loading}>
-          Ingresar con Google
-      </Button>
-      {/* </div> */}
-
-
-      <p className="mt-6 text-center text-sm text-gray-600">
-        ¿No tienes una cuenta?{' '}
-        <Link to="/registro" className="font-medium text-green-600 hover:text-green-500">
-          Regístrate ahora
-        </Link>
-      </p>
+ 
+ 
+      {/* Botón Google (estructura similar al HTML) */}
+      <button onClick={onGoogleLogin} disabled={loading} className="btn" style={{ marginTop: '12px', background: 'white', color: '#444', border: '1px solid #dadce0', width: '100%' }}> {/* Estilos aproximados */}
+         {/* Aquí iría el logo de Google */} G Iniciar sesión con Google
+      </button>
+ 
+ 
+      {/* Enlace Registro */}
+      <p style={{ marginTop: '16px', textAlign: 'center' }}>¿No tienes una cuenta?</p>
+      {/* Botón que navega usando Link de React Router */}
+      <Link to="/registro" className="btn" style={{ width: '100%', textAlign: 'center', display: 'block' }}> {/* Usa clase .btn y estilos */}
+        📝 Registrarse ahora
+      </Link>
+      {/* O si prefieres un botón que navegue:
+      <button type="button" xx={() => navigate('/registro')} className="btn">
+        📝 Registrarse ahora
+      </button>
+      */}
     </div>
   );
 }

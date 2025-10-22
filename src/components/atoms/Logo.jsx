@@ -1,14 +1,15 @@
 import Image from './Image';
 import { Link } from 'react-router-dom';
-
-export default function Logo({ className = "" }) {
+ 
+ 
+export default function Logo({ className = "" }) { // Recibe header-logo
   return (
-    <Link to="/"> {/* Enlace a la página de inicio */}
+    <Link to="/">
       <Image
-        src="/assets/logo.png" // Asegúrate que logo.png esté en la carpeta `public/img/`
+        src="src/assets/logo.png"
         alt="Logo Huerto Hogar"
-        // Replica .header-logo con Tailwind
-        className={`h-10 w-auto ${className}`} // Ajusta h-10 según el tamaño deseado
+        className={className} // Aplica la clase 'header-logo' pasada desde Header
+        id={className === 'logo-huerta' ? 'Logo-huerta' : undefined}
       />
     </Link>
   );

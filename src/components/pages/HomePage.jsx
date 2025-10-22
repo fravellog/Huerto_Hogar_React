@@ -1,38 +1,37 @@
 import MainLayout from '../templates/MainLayout';
 import FeaturedProducts from '../organisms/FeaturedProducts';
 import Banner from '../organisms/Banner';
-// import { useCart } from '../../context/CartContext'; // Para la lógica del carrito
-import Button from '../atoms/Button'; // Para el botón "Ver productos"
 import { Link } from 'react-router-dom'; // Para el enlace del botón
-
-// Datos de ejemplo (normalmente vendrían de una API o estado global)
+ 
+ 
+// Datos de ejemplo
 const featuredProductsData = [
-   { id: 1, nombre: "Tomates Orgánicos", precio: "$1.610 /kg", imagen: "/VerdurasImg/tomate.png" },
-   { id: 2, nombre: "Lechugas Frescas", precio: "$1.180 c/u", imagen: "/img/lechuga.jpg" },
-   { id: 3, nombre: "Zanahorias Frescas", precio: "$1.200 /kg", imagen: "/VerdurasImg/Zanahoria.png" },
+   { id: 1, nombre: "Tomates Orgánicos", precio: "Precio: $1.610/kg", imagen: "/tomate.png" }, // Formato precio como en HTML
+   { id: 2, nombre: "Lechugas Frescas", precio: "Precio: $1.180/unidad", imagen: "/Lechuga.png" },
+   { id: 3, nombre: "Zanahorias Frescas", precio: "Precio: $1.200/kg", imagen: "/Zanahoria.png" },
 ];
-
+ 
+ 
 export default function HomePage() {
-  // const { addToCart } = useCart(); // Ejemplo
-
   const handleAddToCart = (product) => {
     console.log('Añadir al carrito:', product);
-    // Aquí llamarías a addToCart(product);
+    // Aquí iría la lógica original del modal (abrirModalCantidad)
+    // adaptada a React (probablemente usando estado para mostrar/ocultar un modal)
   };
-
+ 
+ 
   return (
     <MainLayout>
       <Banner />
       <FeaturedProducts products={featuredProductsData} onAddToCart={handleAddToCart} />
-      {/* Botón "Ver Productos" como enlace */}
-       <div className="text-center my-8">
-            <Link to="/tienda">
-              {/* Reutilizando el átomo Button pero renderizado como Link */}
-              <Button className="text-lg px-8 py-3"> {/* Ajusta tamaño si es necesario */}
+       {/* Contenedor y enlace "Ver Productos" con clases CSS */}
+       <div style={{display:'flex', justifyContent:'center', margin:'32px 0'}}> {/* Estilo en línea como en tu HTML */}
+            <Link to="/login" className="btn btn-ver-productos"> {/* Usa las clases CSS */}
                 Ver productos
-              </Button>
             </Link>
        </div>
+       {/* Aquí podrías añadir el componente Modal si lo creas */}
+       {/* <QuantityModal /> */}
     </MainLayout>
   );
 }
