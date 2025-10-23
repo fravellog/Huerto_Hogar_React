@@ -9,12 +9,19 @@ export default function ProfilePage() {
 
   return (
     <MainLayout>
-      <Title level="h1" className="text-center mb-8">Mi Perfil</Title>
-      {/* Aquí eventualmente iría el organismo ProfileCard */}
-       <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow">
-         <p className="text-gray-600 text-center">Cargando información del perfil...</p>
-         {/* Aquí mostrarías la foto, nombre, correo y botones */}
-       </div>
+      <div className="text-center py-16 sm:py-24">
+        <Title level="h1" className="text-align-center mb-20">Mi Perfil</Title>
+          <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
+          <div className="max-w-md w-full bg-white p-8 rounded-lg shadow flex flex-col items-center">
+            {/* Aquí eventualmente iría el organismo ProfileCard */}
+            <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
+              <div className="max-w-md w-full bg-white p-8 rounded-lg shadow flex flex-col items-center">
+                {/* ...contenido... */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </MainLayout>
   );
 }

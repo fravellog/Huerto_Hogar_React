@@ -31,7 +31,7 @@ export default function RegisterPage() {
      // Layout similar a Login
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-lime-100 px-4 py-12">
       <div className="mb-8">
-        <Logo className="h-16 sm:h-20" />
+        <Logo className="logo-huerta" />
       </div>
       {/* Placeholder mientras creas RegisterForm.jsx */}
        <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-10 m-4 max-w-sm w-full mx-auto">
