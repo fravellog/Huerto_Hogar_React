@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 // Importa tus páginas
 import HomePage from './components/pages/HomePage';
@@ -13,24 +14,26 @@ import NotFoundPage from './components/pages/NotFoundPage'; // Página para ruta
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Rutas que usan el MainLayout (implícito dentro de cada página) */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/tienda" element={<ShopPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/contacto" element={<ContactPage />} />
-        <Route path="/carrito" element={<CartPage />} />
-        <Route path="/perfil" element={<ProfilePage />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Rutas que usan el MainLayout (implícito dentro de cada página) */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/tienda" element={<ShopPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/contacto" element={<ContactPage />} />
+          <Route path="/carrito" element={<CartPage />} />
+          <Route path="/perfil" element={<ProfilePage />} />
 
-        {/* Rutas que podrían tener un layout diferente (sin Header/Footer) */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registro" element={<RegisterPage />} />
+          {/* Rutas que podrían tener un layout diferente (sin Header/Footer) */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registro" element={<RegisterPage />} />
 
-        {/* Ruta comodín para 404 */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
+          {/* Ruta comodín para 404 */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
