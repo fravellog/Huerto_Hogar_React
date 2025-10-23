@@ -1,30 +1,24 @@
 // src/components/pages/LoginPage.jsx
-import React from 'react';
+import React, { useContext } from 'react';
 import LoginForm from '../organisms/LoginForm';
 import Logo from '../atoms/Logo';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
  
  
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
  
  
   const handleLogin = async ({ usuario, contrasena }) => {
-    console.log("Login attempt:", usuario);
-
     if (usuario === "admin" && contrasena === "1234") {
-      console.log("Admin login successful");
+      login({ usuario }); // Actualiza el contexto de autenticación
       navigate('/');
       return Promise.resolve();
-
     } else {
-      console.log("Login failed");
       return Promise.reject(new Error("Usuario o contraseña incorrectos"));
     }
-    // Lógica real de login...
-    // Si es exitoso:
-    // navigate('/');
-    return Promise.reject(new Error("Usuario o contraseña incorrectos")); // Simula error por ahora
   };
  
  
