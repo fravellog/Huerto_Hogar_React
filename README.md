@@ -1,4 +1,13 @@
 # React + Vite
+Para ejecutar el proyecto primero se tienen que seguir los siguientes pasos para que no hayan errores en sus funciones.
+
+1. Abrir el cmd
+2. ejecutar los siguientes comandos (si el archivo se descargo en otra ruta, cambiela)
+cd Downloads
+cd [nombre del archivo]
+npm install
+npm run dev (opcional, ejecuta la pagina).
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
