@@ -1,3 +1,124 @@
+/* Contacto moderno */
+.contact-form-modern {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(60,185,23,0.10);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.contact-form-row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+.contact-input-group {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(60,185,23,0.08);
+    border: 1.5px solid #e0e0e0;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    min-width: 220px;
+    flex: 1 1 220px;
+    transition: box-shadow 0.2s, border 0.2s;
+}
+.contact-input-group:focus-within {
+    border: 2px solid #388E3C;
+    box-shadow: 0 2px 12px rgba(60,185,23,0.15);
+}
+.contact-icon {
+    font-size: 20px;
+    color: #388E3C;
+    margin-right: 10px;
+}
+.contact-input-group input {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    padding: 8px 0;
+}
+.contact-btn {
+    background: linear-gradient(90deg, #4CAF50 60%, #388E3C 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 38px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(60,185,23,0.14);
+    transition: background 0.3s, transform 0.2s;
+    margin-left: 18px;
+    align-self: flex-end;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.contact-btn:hover {
+    background: linear-gradient(90deg, #388E3C 60%, #4CAF50 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+.contact-success {
+    color: #388E3C;
+    font-weight: 600;
+    margin-top: 18px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+@media (max-width: 900px) {
+    .contact-form-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    .contact-btn {
+        width: 100%;
+        margin-left: 0;
+        align-self: stretch;
+        justify-content: center;
+    }
+}
+/* Estilos para la tienda en dos columnas */
+@media (max-width: 600px) {
+    .shop-categoria-block {
+        padding: 8px;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    .product-card-tienda {
+        min-width: 0 !important;
+        width: 100%;
+        padding: 6px !important;
+        border-radius: 10px !important;
+    }
+    .shop-productos-grid {
+        gap: 8px;
+    }
+    .product-card-tienda h3 {
+        font-size: 1rem !important;
+        margin-bottom: 4px !important;
+    }
+    .product-card-tienda > div {
+        font-size: 13px !important;
+        margin-bottom: 4px !important;
+    }
+    .product-card-tienda button {
+        font-size: 14px !important;
+        padding: 8px 0 !important;
+    }
+}
 /* Carrito de compras moderno */
 .carrito-container {
     max-width: 700px;

@@ -2,9 +2,19 @@
  
  
 export default function Banner() {
-  // La imagen de fondo se define en styles.css para la clase .banner
   return (
-    <section className="banner">
+    <section
+      className="banner"
+      style={{
+        width: '100%',
+        minHeight: 260,
+        background: 'url(/Logos/banner_verduras.jpg) center/cover no-repeat',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+      }}
+    >
       <div className="banner-content">
         <h1>Tienda la Huerta</h1>
         <p>

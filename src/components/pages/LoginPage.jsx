@@ -11,13 +11,19 @@ export default function LoginPage() {
   const { login } = useContext(AuthContext);
  
  
-  const handleLogin = async ({ usuario, contrasena }) => {
-    if (usuario === "admin" && contrasena === "1234") {
-      login({ usuario }); // Actualiza el contexto de autenticación
+
+  const handleLogin = async ({ correo, contrasena }) => {
+    // Buscar usuario registrado en localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados') || '[]');
+    const userFound = usuarios.find(u =>
+      u.correo === correo && u.contrasena === contrasena
+    );
+    if (userFound) {
+      login(userFound); // Pasa el objeto completo (nombre, correo, etc.)
       navigate('/');
       return Promise.resolve();
     } else {
-      return Promise.reject(new Error("Usuario o contraseña incorrectos"));
+      return Promise.reject(new Error("Correo o contraseña incorrectos"));
     }
   };
  

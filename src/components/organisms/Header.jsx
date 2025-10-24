@@ -19,7 +19,6 @@ export default function Header() {
               <NavLink to="/perfil" className="nav-link">👤 Perfil</NavLink>
               <NavLink to="/contacto" className="nav-link">✉️ Contacto</NavLink>
               <NavLink to="/carrito" className="nav-link">🛒 Carrito</NavLink>
-              <button onClick={logout} className="nav-link" style={{background:'none',border:'none',cursor:'pointer'}}>Cerrar sesión</button>
             </>
           ) : (
             <NavLink to="/login" className="nav-link">🔑 Iniciar Sesión</NavLink>

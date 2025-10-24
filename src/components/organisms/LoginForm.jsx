@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
  
  
 export default function LoginForm({ onLogin, onGoogleLogin }) {
-  const [usuario, setUsuario] = useState('');
+  const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [errorGeneral, setErrorGeneral] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,12 +15,12 @@ export default function LoginForm({ onLogin, onGoogleLogin }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorGeneral('');
-    if (!usuario || !contrasena) {
-      setErrorGeneral('Por favor, ingrese usuario y contraseña.');
+    if (!correo || !contrasena) {
+      setErrorGeneral('Por favor, ingrese correo y contraseña.');
       return;
     }
     setLoading(true);
-    onLogin({ usuario, contrasena })
+    onLogin({ correo, contrasena })
       .catch((err) => {
         setErrorGeneral(err.message || 'Error al iniciar sesión.');
       })
@@ -37,21 +37,22 @@ export default function LoginForm({ onLogin, onGoogleLogin }) {
         <h2 style={{ textAlign: 'center' }}>Iniciar Sesión</h2> {/* Estilo en línea como en tu HTML */}
  
  
-        {/* Campo Usuario con icono (estructura del HTML original) */}
+
+
+        {/* Campo Correo con icono */}
         <div className="campo campo-icono">
-          <label htmlFor="usuario">Usuario</label>
+          <label htmlFor="correo">Correo</label>
           <div className="input-icono">
-            <span className="icono">👤</span> {/* Ícono como texto o SVG/FontAwesome */}
+            <span className="icono">📧</span>
             <input
-              type="text"
-              id="usuario"
-              name="usuario"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)}
+              type="email"
+              id="correo"
+              name="correo"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
               required
             />
           </div>
-          {/* Aquí podrías poner el <p id="errorUsuario"> si lo necesitas */}
         </div>
  
  

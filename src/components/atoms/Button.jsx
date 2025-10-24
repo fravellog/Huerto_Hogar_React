@@ -6,9 +6,9 @@ export default function Button({ children, onClick, type = "button", className =
   return (
     <button
       type={type}
-      xx={onClick}
+      onClick={onClick}
       disabled={disabled}
-      className={combinedClassName} // Usa la combinación de clases
+      className={combinedClassName}
     >
       {children}
     </button>
