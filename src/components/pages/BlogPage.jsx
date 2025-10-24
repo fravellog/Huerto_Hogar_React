@@ -5,8 +5,8 @@ import Title from '../atoms/Title';
 
 // Datos de ejemplo para las entradas del blog (similar al HTML)
 const blogPosts = [
-  { id: 1, title: "Guía para crear una huerta urbana", summary: "Consejos prácticos para iniciar tu propia huerta...", imageSrc: "/img/noticia1.jpg", link: "https://...", linkText: "Ver guía..." },
-  { id: 2, title: "Beneficios de consumir frutas y verduras", summary: "Descubre por qué incluir frutas y verduras...", imageSrc: "/img/Noticia2.png", link: "https://...", linkText: "Recomendaciones..." },
+  { id: 1, title: "Guía para crear una huerta urbana", summary: "Consejos prácticos para iniciar tu propia huerta...", imageSrc: "public/Blog/Huerta_personas.jpg", link: "https://falconagroalimentaria.com/huerta-para-principiantes-como-iniciar-mi-propia-huerta/", linkText: "Ver guía..." },
+  { id: 2, title: "Beneficios de consumir frutas y verduras", summary: "Descubre por qué incluir frutas y verduras...", imageSrc: "public/Blog/beneficios.jpeg", link: "https://www.eufic.org/es/vida-sana/articulo/beneficios-de-las-frutas-y-las-verduras/", linkText: "Recomendaciones..." },
   // ... añadir las otras entradas
 ];
 
