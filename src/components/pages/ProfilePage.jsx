@@ -46,7 +46,9 @@ function ProfilePage() {
 
   const handleSave = (e) => {
     e.preventDefault();
-    login({ ...user, nombre, correo, foto });
+    // No permitimos cambiar el correo desde el perfil una vez logeado.
+    // Conservamos el correo original de `user` y permitimos actualizar nombre/foto.
+    login({ ...user, nombre, correo: user?.correo || correo, foto });
     setShowModal(false);
   };
 
@@ -103,7 +105,10 @@ function ProfilePage() {
               </div>
               <input type="file" accept="image/*" onChange={handleFileChange} style={{ marginBottom: 8, width: '100%' }} />
               <input type="text" placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)} style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #dadce0', fontSize: 16, marginBottom: 4 }} required />
-              <input type="email" placeholder="Correo" value={correo} onChange={e => setCorreo(e.target.value)} style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #dadce0', fontSize: 16, marginBottom: 4 }} required />
+              {/* Mostrar el correo como texto (no editable) dentro del modal */}
+              <div style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #eee', background: '#fafafa', color: '#666', fontSize: 16, marginBottom: 4 }} aria-live="polite">
+                {user?.correo}
+              </div>
               <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
                 <button type="button" className="btn" style={{ background: '#bbb', color: '#fff' }} onClick={handleClose}>Cancelar</button>
                 <button type="submit" className="btn" style={{ background: '#4CAF50', color: '#fff' }}>Guardar</button>

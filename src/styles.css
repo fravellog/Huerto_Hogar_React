@@ -1,3 +1,38 @@
+/* -----------------------------
+   Mobile-first helpers & reset
+   ----------------------------- */
+html {
+    -webkit-text-size-adjust: 100%; /* evita zoom inesperado en iOS */
+    -ms-text-size-adjust: 100%;
+    box-sizing: border-box;
+    font-size: 16px; /* base accesible */
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+
+body, html { width: 100%; height: 100%; overflow-x: hidden; }
+
+img, picture, video, svg { max-width: 100%; height: auto; display: block; }
+
+a, button { -webkit-tap-highlight-color: rgba(0,0,0,0.05); }
+
+:root {
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --brand-1: #388E3C;
+    --brand-2: #4CAF50;
+    --radius: 12px;
+    --btn-min-height: 44px; /* objetivo de tap */
+}
+
+/* Helper para botones anchos en móvil */
+.btn--block { width: 100%; display: inline-flex; justify-content: center; }
+
+/* -----------------------------
+   Estilos de componente: contacto
+   ----------------------------- */
 /* Contacto moderno */
 .contact-form-modern {
     background: #fff;
@@ -141,73 +176,10 @@
 #tabla-carrito th, #tabla-carrito td {
     padding: 12px 8px;
     text-align: center;
-}
+/* Mobile banner/mini-hero removed — header contains hamburger and nav links */
 
-#tabla-carrito th {
-    background: #3a7d3a;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.1rem;
 }
-
-#tabla-carrito tr {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-#tabla-carrito tr:last-child {
-    border-bottom: none;
-}
-
-#tabla-carrito td {
-    font-size: 1rem;
-}
-
-#carrito-total {
-    font-size: 1.3rem;
-    font-weight: bold;
-    text-align: right;
-    color: #3a7d3a;
-    margin-top: 12px;
-}
-
-#tabla-carrito button {
-    background: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 14px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-#tabla-carrito button:hover {
-    background: #c0392b;
-}
-/* Estilos para la tienda en dos columnas */
-.fila-dos-columnas {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 48px;
-    max-width: 1100px;
-    margin: 48px auto 0 auto;
-    padding: 0 24px;
-}
-
-.columna-tienda {
-    flex: 1;
-    background: #f8f8f8;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.titulo-fila {
-    text-align: center;
-    margin-bottom: 24px;
-    font-size: 2rem;
-    color: #3a7d3a;
-}
+/* Mobile banner/mini-hero removed — header contains hamburger and nav links */
 
 .productos-fila {
     display: flex;
@@ -660,13 +632,17 @@
     gap: 24px;
 }
 .nav-link {
-    color: #388E3C;
+    color: var(--brand-1);
     text-decoration: none;
-    font-size: 17px;
+    font-size: 1rem;
     font-weight: 500;
-    padding: 8px 18px;
+    padding: 8px 14px;
     border-radius: 20px;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+    min-height: 44px; /* target táctil mínimo */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 .nav-link:hover {
     background: #e8f5e9;
@@ -769,17 +745,30 @@ footer{
 }
 
 button, .btn {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background: var(--brand-2);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.22s ease, transform 0.12s ease;
+    min-height: var(--btn-min-height);
+    font-size: 1rem;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
 }
 
 button:hover, .btn:hover {
-  background: #388E3C;
+    background: var(--brand-1);
+    transform: translateY(-2px);
+}
+
+button:focus-visible, .btn:focus-visible {
+    outline: 3px solid rgba(56,142,60,0.18);
+    outline-offset: 3px;
 }
 
 .form-container {
@@ -815,6 +804,323 @@ body {
     font-size: 1rem;
     margin-top: 8px;
 }
+
+/* ---------------------
+     Ajustes responsivos
+     --------------------- */
+@media (max-width: 900px) {
+    .header-content { padding: 6px 12px; }
+    .header-nav { gap: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .header-nav .nav-link { padding: 6px 10px; font-size: 15px; white-space:nowrap; }
+    .header-logo { height: 34px; }
+    .main-header { height: 56px; }
+
+    .banner { min-height: 180px; background-position: center top; }
+    .banner-content { padding: 20px; max-width: 92%; }
+    .banner-content h1 { font-size: 2rem; }
+    .banner-content p { font-size: 1rem; }
+
+    .btn-ver-productos { padding: 12px 24px; font-size: 1rem; }
+    .btn-inicio { padding: 8px 12px; font-size: 0.95rem; }
+
+    .destacados { margin: 24px 12px; }
+    .productos-grid { gap: 18px; }
+
+    /* Productos: dos columnas en pantallas medianas */
+    .producto-card, .producto-card-tienda, .product-card-tienda {
+        width: calc(50% - 12px);
+        max-width: none;
+    }
+
+    /* Tienda: apilar columnas en una sola columna en pantallas pequeñas */
+    .tienda-main { grid-template-columns: 1fr; padding: 0 12px; gap: 18px; }
+}
+
+@media (max-width: 600px) {
+    .header-nav { gap: 8px; }
+    .nav-link { font-size: 14px; padding: 6px 8px; }
+    .banner { min-height: 140px; }
+    .banner-content { padding: 16px; }
+    .banner-content h1 { font-size: 1.6rem; }
+
+    /* Productos: una columna en móvil */
+    .producto-card, .producto-card-tienda, .product-card-tienda {
+        width: 100%;
+    }
+
+    .btn-ver-productos { width: 90%; padding: 12px; }
+    .btn-inicio { left: 8px; top: 8px; padding: 6px 10px; font-size: 0.9rem; }
+
+    /* Evitar que el header tape el contenido en móvil */
+    .main-header { position: sticky; }
+    .banner-content { box-shadow: none; }
+}
+
+/* Ajuste para asegurar que el overlay del banner no oculte elementos interactivos */
+.banner::after { z-index: 0; }
+.banner-content { z-index: 1; }
+
+/* Ajustes adicionales para móviles muy pequeños (<=420px) */
+@media (max-width: 420px) {
+    /* Contenedores generales */
+    .destacados, .destacados-titulo, .productos-grid, .fila-dos-columnas, .tienda-main {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Tarjetas de producto ocupan todo el ancho disponible y se centran */
+    .producto-card, .producto-card-tienda, .product-card-tienda, .product-card {
+        width: 100% !important;
+        max-width: 420px;
+        margin: 12px auto;
+        padding: 18px;
+        box-shadow: 0 2px 12px rgba(60,185,23,0.08);
+        border-radius: 12px;
+    }
+
+    /* Imagen de producto más pequeña y centrada */
+    .producto-img, .product-card img, .product-card-tienda img {
+        width: 140px;
+        height: auto;
+        display: block;
+        margin: 0 auto 14px auto;
+    }
+
+    /* Ajustes de texto y botones */
+    .producto-card h3, .product-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    .producto-card p, .product-card p {
+        font-size: 0.97rem;
+    }
+    .producto-card button, .btn-ver-productos {
+        width: 90%;
+        margin: 12px auto 0 auto;
+        display: block;
+        padding: 12px 16px;
+        font-size: 1rem;
+    }
+
+    /* Banner y header */
+    .banner-content { padding: 14px; }
+    .main-header { padding: 8px 10px; }
+}
+
+/* --------------------------
+     Estilos del menú hamburguesa
+     -------------------------- */
+.hamburger {
+    display: none; /* visible solo en mobile */
+    width: 40px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1200; /* aseguramos que esté por encima */
+    -webkit-tap-highlight-color: transparent;
+}
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 24px;
+    margin: 0 auto;
+    background: #388E3C;
+    border-radius: 3px;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.18s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Mobile nav: hidden by default, shown when .mobile.open */
+.header-nav.mobile {
+    display: none;
+}
+.header-nav.mobile.open {
+    display: flex;
+    position: fixed;
+    /* dejar espacio para el header y la safe-area (notch) */
+    top: calc(64px + env(safe-area-inset-top, 0px));
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 18px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    z-index: 500;
+}
+.header-nav.mobile.open .nav-link {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+/* asegurar que el header no tape contenido en móviles con notch */
+.main-header { padding-top: env(safe-area-inset-top, 0px); }
+
+/* Mostrar hamburger en pantallas pequeñas */
+@media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .header-nav { display: none; }
+    .header-content { align-items: center; }
+}
+
+/* Mostrar hamburger en pantallas pequeñas */
+@media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .header-nav { display: none; }
+    .header-content { align-items: center; }
+    body { font-size: 15px; }
+    .btn-ver-productos { font-size: 1rem; padding: 12px 20px; }
+}
+
+/* Mobile nav: overlay shown when .mobile.open */
+.header-nav.mobile.open {
+    display: flex;
+    position: fixed;
+    top: 64px; /* directly under the header */
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 18px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    z-index: 500;
+}
+.header-nav.mobile.open .nav-link {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+/* Prevent body scroll when menu open */
+.no-scroll { overflow: hidden; height: 100%; }
+
+/* Mobile panel + backdrop */
+.mobile-backdrop {
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    background: rgba(0,0,0,0.28);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+    z-index: 1150;
+}
+.mobile-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(92vw, 420px);
+    transform: translateX(106%);
+    transition: transform 320ms cubic-bezier(.2,.9,.2,1);
+    box-shadow: -12px 0 40px rgba(0,0,0,0.25);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-panel.open { transform: translateX(0); }
+
+/* Variantes visuales: verde por defecto y opción clara con bordes negros */
+.mobile-panel--green {
+    background: linear-gradient(180deg, rgba(56,142,60,1) 0%, rgba(76,175,80,1) 100%);
+    color: #fff;
+}
+.mobile-panel--light {
+    background: #ffffff;
+    color: #111;
+    border-left: 4px solid #000; /* borde negro para contraste */
+    border-top: 4px solid #000;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+}
+
+.mobile-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.mobile-panel__close {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 28px;
+    line-height: 1;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.mobile-panel__content {
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    overflow-y: auto;
+}
+
+.mobile-panel .nav-link {
+    display: block;
+    color: inherit;
+    background: transparent;
+    padding: 14px 12px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: left;
+}
+.mobile-panel--green .nav-link:hover {
+    background: rgba(255,255,255,0.06);
+}
+.mobile-panel--light .nav-link:hover {
+    background: rgba(0,0,0,0.06);
+}
+
+/* Improve hamburger animation (rotate into X) */
+.hamburger span {
+    display: block;
+    height: 3px;
+    background: var(--brand-1);
+    border-radius: 3px;
+    transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: #fff; }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: #fff; }
+
+/* Ensure header logo scales nicely inside panel */
+.mobile-panel .logo-huerta { max-width: 140px; height: auto; }
+
+/* Smaller screens: panel full width */
+@media (max-width: 360px) {
+    .mobile-panel { width: 100%; }
+}
+
+/* Small adjustments for very small screens */
+@media (max-width: 420px) {
+    .header-content { padding: 6px 10px; }
+    .header-nav.mobile.open { top: 56px; }
+}
+
 
 
 

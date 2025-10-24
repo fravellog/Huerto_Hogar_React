@@ -90,9 +90,11 @@ export default function LoginForm({ onLogin, onGoogleLogin }) {
  
  
       {/* Botón Google (estructura similar al HTML) */}
-      <button onClick={onGoogleLogin} disabled={loading} className="btn" style={{ marginTop: '12px', background: 'white', color: '#444', border: '1px solid #dadce0', width: '100%' }}> {/* Estilos aproximados */}
-         {/* Aquí iría el logo de Google */} G Iniciar sesión con Google
-      </button>
+    {/* Contenedor donde la librería de Google renderizará el botón oficial. */}
+    <div id="google-signin-button" style={{ marginTop: '12px', width: '100%' }} />
+
+    {/* Si GSI no se carga, el botón oficial no aparecerá. Puedes recargar la página o
+      comprobar la consola para ver por qué no se cargó la librería. */}
  
  
       {/* Enlace Registro */}

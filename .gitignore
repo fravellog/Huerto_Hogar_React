@@ -1,3 +1,13 @@
+# Node
+node_modules/
+
+# Vite build outputs
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
 # Logs
 logs
 *.log
