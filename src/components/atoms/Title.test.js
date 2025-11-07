@@ -2,45 +2,54 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Title from './Title';
- 
- 
-describe('Title Component (Atom)', () => {
- 
- 
-  it('debería renderizar un h1 con el texto correcto', () => {
-    // 1. Arrange
-    render(<Title level="h1">Título Principal</Title>);
- 
- 
-    // 2. Act & Assert
-    // 'getByRole' es la forma semántica de buscar un encabezado.
-    // Le especificamos el 'level' (1 para <h1>)
-    const heading = screen.getByRole('heading', { level: 1, name: /Título Principal/i });
-    expect(heading).toBeInTheDocument();
+
+describe('Pruebas para el átomo Title', () => {
+
+  // --- PRUEBA 1 (Valor por defecto) ---
+  test('1. Debe renderizar como H2 por defecto', () => {
+    render(<Title>Soy un H2 por defecto</Title>);
+    const headingElement = screen.getByRole('heading', { level: 2 });
+    
+    expect(headingElement).toBeInTheDocument();
+    expect(headingElement.tagName).toBe('H2');
+    expect(headingElement).toHaveClass('text-3xl mb-3');
   });
- 
- 
-  it('debería renderizar un h3 con el texto correcto', () => {
-    // 1. Arrange
-    render(<Title level="h3">Subtítulo</Title>);
- 
- 
-    // 2. Act & Assert
-    const heading = screen.getByRole('heading', { level: 3, name: /Subtítulo/i });
-    expect(heading).toBeInTheDocument();
+  
+  // --- PRUEBA 2 (Valor válido) ---
+  test('2. Debe renderizar como H1 cuando se lo pasamos', () => {
+    render(<Title level="h1">Soy un H1</Title>);
+    const headingElement = screen.getByRole('heading', { level: 1 });
+    
+    expect(headingElement).toBeInTheDocument();
+    expect(headingElement.tagName).toBe('H1');
+    expect(headingElement).toHaveClass('text-4xl mb-4');
   });
- 
- 
-  it('debería usar h2 por defecto si no se especifica el nivel', () => {
-    // 1. Arrange
-    render(<Title>Título por Defecto</Title>);
- 
- 
-    // 2. Act & Assert
-    // El nivel 2 (<h2>) es el predeterminado en tu componente
-    const heading = screen.getByRole('heading', { level: 2, name: /Título por Defecto/i });
-    expect(heading).toBeInTheDocument();
+
+  // --- PRUEBA 3 (Fallback de 'level' inválido) ---
+  test('3. Debe usar H2 como TAG y clase si el level es inválido', () => {
+    // Probamos la rama 'levelStyles[level] || levelStyles.h2'
+    // y la lógica de validación de 'Tag'
+    render(<Title level="h7">Soy un H2 (fallback)</Title>);
+    
+    const element = screen.getByText('Soy un H2 (fallback)');
+
+    // Verificamos que la etiqueta renderizada fue "H2" (el nuevo fallback del Tag)
+    expect(element.tagName).toBe('H2');
+    // Verificamos que la CLASE también sea la de h2
+    expect(element).toHaveClass('text-3xl mb-3');
+  }); // <-- La Prueba 3 TERMINA AQUÍ
+
+  // --- PRUEBA 4 (Fallback de 'className') ---
+  test('4. Debe aplicar clases personalizadas pasadas por "className"', () => {
+    // Esta prueba cubre la rama 'className = ""'
+    render(<Title level="h1" className="mi-clase-personalizada">Título con clase</Title>);
+    
+    const element = screen.getByText('Título con clase');
+    
+    // Verificamos que tiene todas las clases
+    expect(element).toHaveClass('font-bold'); // Clase base
+    expect(element).toHaveClass('text-4xl'); // Clase de level
+    expect(element).toHaveClass('mi-clase-personalizada'); // Clase personalizada
   });
- 
- 
-});
+
+}); // <-- Aquí termina el 'describe'

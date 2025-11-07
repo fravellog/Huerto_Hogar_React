@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1762492306673" clover="3.2.0">
+  <project timestamp="1762492306674" name="All files">
+    <metrics statements="92" coveredstatements="60" conditionals="68" coveredconditionals="43" methods="31" coveredmethods="25" elements="191" coveredelements="128" complexity="0" loc="92" ncloc="92" packages="3" files="16" classes="16"/>
+    <package name="atoms">
+      <metrics statements="15" coveredstatements="15" conditionals="20" coveredconditionals="20" methods="7" coveredmethods="7"/>
+      <file name="Button.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\Button.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+      </file>
+      <file name="Image.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\Image.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="2" count="7" type="stmt"/>
+      </file>
+      <file name="Input.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\Input.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="2" count="5" type="stmt"/>
+      </file>
+      <file name="Label.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\Label.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="2" count="3" type="stmt"/>
+      </file>
+      <file name="Logo.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\Logo.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="6" count="2" type="stmt"/>
+      </file>
+      <file name="NavLink.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\NavLink.jsx">
+        <metrics statements="4" coveredstatements="4" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="10" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="2" type="stmt"/>
+      </file>
+      <file name="Title.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\atoms\Title.jsx">
+        <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="6" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="22" count="7" type="cond" truecount="2" falsecount="0"/>
+      </file>
+    </package>
+    <package name="molecules">
+      <metrics statements="14" coveredstatements="14" conditionals="8" coveredconditionals="8" methods="5" coveredmethods="5"/>
+      <file name="BlogCard.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\molecules\BlogCard.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+      </file>
+      <file name="IconInput.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\molecules\IconInput.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="5" count="2" type="stmt"/>
+      </file>
+      <file name="ProductCard.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\molecules\ProductCard.jsx">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="organisms">
+      <metrics statements="63" coveredstatements="31" conditionals="40" coveredconditionals="15" methods="19" coveredmethods="13"/>
+      <file name="Banner.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\organisms\Banner.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+      <file name="CartTable.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\organisms\CartTable.jsx">
+        <metrics statements="3" coveredstatements="3" conditionals="12" coveredconditionals="10" methods="3" coveredmethods="3"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="27" count="4" type="cond" truecount="2" falsecount="2"/>
+        <line num="33" count="1" type="stmt"/>
+      </file>
+      <file name="ContactForm.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\organisms\ContactForm.jsx">
+        <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+      </file>
+      <file name="Footer.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\organisms\Footer.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="7" count="1" type="stmt"/>
+      </file>
+      <file name="MiniHero.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\organisms\MiniHero.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+      <file name="RegisterForm.jsx" path="C:\Users\beret\Huerto_Hogar_React\src\components\organisms\RegisterForm.jsx">
+        <metrics statements="42" coveredstatements="10" conditionals="26" coveredconditionals="3" methods="7" coveredmethods="1"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="41" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="64" count="3" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

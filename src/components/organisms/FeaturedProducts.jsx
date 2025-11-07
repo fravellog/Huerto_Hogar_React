@@ -19,7 +19,7 @@ export default function FeaturedProducts({ products = [], onAddToCart }) {
           <ProductCard
             key={product.id}
             product={product}
-            xx={onAddToCart}
+            onAddToCart={onAddToCart}
           />
         ))}
       </div>

@@ -1,65 +1,38 @@
+// src/components/atoms/Input/Input.test.js (Actualizado al 100%)
 import React from 'react';
-// Importamos 'fireEvent' para simular eventos
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Input from './Input';
- 
- 
-describe('Input Component (Atom)', () => {
- 
- 
-  it('debería renderizar con el placeholder correcto', () => {
-    // 1. Arrange
-    render(<Input placeholder="Buscar producto..." />);
- 
- 
-    // 2. Act & Assert
-    // 'getByPlaceholderText' es la mejor forma de encontrar este input
-    expect(screen.getByPlaceholderText('Buscar producto...')).toBeInTheDocument();
+import Input from './Input'; // Asegúrate que la ruta sea correcta
+
+describe('Pruebas para el átomo Input', () => {
+
+  test('1. Debe renderizarse con el placeholder correcto', () => {
+    render(<Input type="text" placeholder="Escribe tu nombre" />);
+    const inputElement = screen.getByPlaceholderText('Escribe tu nombre');
+    expect(inputElement).toBeInTheDocument();
   });
- 
- 
-  it('debería mostrar el valor (value) que se le pasa', () => {
-    // Esto prueba que es un "componente controlado"
-    // 1. Arrange
-    render(<Input value="Tomates" xx={jest.fn()} />);
- 
- 
-    // 2. Act & Assert
-    // 'getByDisplayValue' encuentra un input por el texto que tiene escrito
-    expect(screen.getByDisplayValue('Tomates')).toBeInTheDocument();
-  });
- 
- 
-  it('debería llamar a onChange cuando el usuario escribe', () => {
-    // 1. Arrange
+
+  test('2. Debe llamar a la función onChange cuando el usuario escribe', () => {
     const handleChangeMock = jest.fn();
-    render(<Input xx={handleChangeMock} placeholder="Escribe aquí" />);
+    // Renderizamos sin 'type' para probar el default en la búsqueda de role
+    render(<Input onChange={handleChangeMock} />);
     
-    // 2. Act
-    // Encontramos el input
-    const inputElement = screen.getByPlaceholderText('Escribe aquí');
+    // 'getByRole('textbox')' funciona porque el tipo por defecto es "text"
+    const inputElement = screen.getByRole('textbox');
     
-    // Simulamos un evento de "cambio" (como si el usuario escribiera)
-    // Le pasamos un objeto de evento simulado con el nuevo valor
-    fireEvent.change(inputElement, { target: { value: 'Lechuga' } });
- 
- 
-    // 3. Assert
-    // Verificamos que nuestro mock fue llamado
+    fireEvent.change(inputElement, { target: { value: 'Hola' } });
     expect(handleChangeMock).toHaveBeenCalledTimes(1);
   });
- 
- 
-  it('debería tener el tipo (type) correcto', () => {
-    // 1. Arrange
-    render(<Input type="password" placeholder="Clave" />);
- 
- 
-    // 2. Act & Assert
-    // Verificamos que el input encontrado tiene el atributo 'type'
-    expect(screen.getByPlaceholderText('Clave')).toHaveAttribute('type', 'password');
+  
+  // --- ¡NUEVA PRUEBA PARA CUBRIR LA RAMA FALTANTE! ---
+  test('3. Debe usar "text" como type por defecto si no se especifica', () => {
+    // Renderizamos SIN la prop "type"
+    render(<Input placeholder="Input por defecto" />);
+    
+    const inputElement = screen.getByPlaceholderText('Input por defecto');
+    
+    // Verificamos que el tipo por defecto "text" se aplicó
+    expect(inputElement).toHaveAttribute('type', 'text');
   });
- 
- 
+
 });
