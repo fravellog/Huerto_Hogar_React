@@ -1,6 +1,13 @@
 import React from 'react';
 
 export default function CartTable({ items = [], total = 0, onRemove, onPay, formatCLP }) {
+  const mostrarTotal = items.length > 0;
+
+  // Formatea el total si corresponde
+  const totalFormateado = formatCLP
+    ? (typeof total === 'number' ? formatCLP(total) : total)
+    : (typeof total === 'number' ? `$${total}` : total);
+
   return (
     <div className="cart-card" style={{ background: '#fafafa', borderRadius: 18, boxShadow: '0 4px 24px rgba(60,185,23,0.10)', padding: 32, maxWidth: 600, margin: '0 auto' }}>
       <h2 style={{ fontWeight: 700, fontSize: 26, color: '#222', marginBottom: 18 }}>Carrito de compras</h2>
@@ -38,10 +45,12 @@ export default function CartTable({ items = [], total = 0, onRemove, onPay, form
           </tbody>
         </table>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 24 }}>
-        <span style={{ fontWeight: 700, fontSize: 20, color: '#388E3C', marginRight: 24 }}>Total: {total}</span>
-        <button onClick={onPay} style={{ background: '#43a047', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 32px', fontWeight: 600, fontSize: 17, boxShadow: '0 2px 8px rgba(60,185,23,0.10)', cursor: 'pointer' }}>Realizar pago</button>
-      </div>
+      {mostrarTotal && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 24 }}>
+          <span style={{ fontWeight: 700, fontSize: 20, color: '#388E3C', marginRight: 24 }}>Total: {totalFormateado}</span>
+          <button onClick={onPay} style={{ background: '#43a047', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 32px', fontWeight: 600, fontSize: 17, boxShadow: '0 2px 8px rgba(60,185,23,0.10)', cursor: 'pointer' }}>Realizar pago</button>
+        </div>
+      )}
     </div>
   );
 }

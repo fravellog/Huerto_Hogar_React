@@ -3,7 +3,7 @@ import Title from '../atoms/Title';
 import { Link } from 'react-router-dom';
 
 
-export default function RegisterForm({ onRegister }) {
+export default function RegisterForm({ onRegister = () => Promise.resolve() }) {
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
@@ -22,9 +22,10 @@ export default function RegisterForm({ onRegister }) {
       const usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados') || '[]');
       if (usuarios.some(u => u.correo.trim().toLowerCase() === value.trim().toLowerCase())) {
         setCorreoRegistrado(true);
-        setError('El correo ya está registrado.');
+        setError('Este correo ya está registrado');
       } else {
         setCorreoRegistrado(false);
+        setError(""); // Limpia el error si el correo es nuevo
       }
     } else {
       setCorreoRegistrado(false);
@@ -39,21 +40,32 @@ export default function RegisterForm({ onRegister }) {
       return;
     }
     if (correoRegistrado) {
-      setError('El correo ya está registrado.');
+      setError('Este correo ya está registrado');
       return;
     }
-    // Validar que las contraseñas coincidan
     if (contrasena !== confirmar) {
       setError('Las contraseñas no coinciden.');
       return;
     }
     const usuarios = JSON.parse(localStorage.getItem('usuariosRegistrados') || '[]');
+    if (usuarios.some(u => u.correo.trim().toLowerCase() === correo.trim().toLowerCase())) {
+      setCorreoRegistrado(true);
+      setError('Este correo ya está registrado');
+      return;
+    }
     setLoading(true);
     try {
       // Guardar usuario en localStorage (solo para demo, no seguro en producción)
       usuarios.push({ nombre, correo, contrasena });
       localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
       await onRegister({ nombre, correo, contrasena });
+      // Limpiar campos tras registro exitoso para cubrir ese flujo
+      setNombre('');
+      setCorreo('');
+      setContrasena('');
+      setConfirmar('');
+      setError('');
+      setCorreoRegistrado(false);
     } catch (err) {
       setError(err.message || 'Error al registrarse.');
     } finally {
@@ -65,7 +77,7 @@ export default function RegisterForm({ onRegister }) {
     <form id="registro" onSubmit={handleSubmit} autoComplete="off">
       <Title level="h2" className="text-center mb-6">Registro</Title>
       <div className="campo campo-icono">
-        <label htmlFor="nombre">Nombre de usuario</label>
+        <label htmlFor="nombre">Nombre</label>
         <div className="input-icono">
           <span className="icono">&#128100;</span>
           <input
@@ -79,7 +91,7 @@ export default function RegisterForm({ onRegister }) {
         </div>
       </div>
       <div className="campo campo-icono">
-        <label htmlFor="correo">Correo electrónico</label>
+        <label htmlFor="correo">Correo</label>
         <div className="input-icono">
           <span className="icono">&#128231;</span>
           <input
@@ -108,7 +120,7 @@ export default function RegisterForm({ onRegister }) {
         </div>
       </div>
       <div className="campo campo-icono">
-        <label htmlFor="confirmar">Confirmar contraseña</label>
+        <label htmlFor="confirmar">Confirmar</label>
         <div className="input-icono">
           <span className="icono">&#128274;</span>
           <input

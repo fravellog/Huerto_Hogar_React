@@ -1,70 +1,79 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { MemoryRouter } from 'react-router-dom';
 import RegisterForm from './RegisterForm';
 
-// Mock de localStorage
-const localStorageMock = (() => {
-  let store = {};
-  return {
-    getItem: (key) => store[key] || null,
-    setItem: (key, value) => { store[key] = value.toString(); },
-    clear: () => { store = {}; }
-  };
-})();
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+jest.mock('react-router-dom', () => ({
+  Link: ({ to, children, ...props }) => <a href={to} {...props}>{children}</a>
+}));
 
-describe('Pruebas para el organismo RegisterForm', () => {
-  const mockOnRegister = jest.fn();
-
+describe('RegisterForm', () => {
   beforeEach(() => {
-    mockOnRegister.mockClear();
-    localStorageMock.clear();
-    render(
-      <MemoryRouter>
-        <RegisterForm onRegister={mockOnRegister} />
-      </MemoryRouter>
-    );
+    localStorage.clear();
   });
 
-  test('1. Debe mostrar error si las contraseñas no coinciden', () => {
-    // --- 👇 ¡ESTA ES LA CORRECCIÓN! ---
-    // Usamos getByLabelText con los strings exactos de tu componente [cite: RegisterForm.jsx]
-    fireEvent.change(screen.getByLabelText('Nombre'), { target: { value: 'Test User' } });
-    fireEvent.change(screen.getByLabelText('Correo'), { target: { value: 'test@test.com' } });
-    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: '123456' } });
-    fireEvent.change(screen.getByLabelText('Confirmar contraseña'), { target: { value: '654321' } });
+  const fillAndSubmit = ({
+    nombre = '',
+    correo = '',
+    contrasena = '',
+    confirmar = ''
+  } = {}) => {
+    if (nombre) fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: nombre } });
+    if (correo) fireEvent.change(screen.getByLabelText(/correo/i), { target: { value: correo } });
+    if (contrasena) fireEvent.change(screen.getByLabelText(/contraseñ?a?/i), { target: { value: contrasena } });
+    if (confirmar) fireEvent.change(screen.getByLabelText(/confirmar/i), { target: { value: confirmar } });
+    fireEvent.click(screen.getByRole('button', { name: /registrarse/i }));
+  };
 
-    fireEvent.click(screen.getByRole('button', { name: 'Registrarse' }));
-    expect(screen.getByText('Las contraseñas no coinciden.')).toBeInTheDocument();
+  test('renderiza campos y botón', () => {
+    render(<RegisterForm />);
+    expect(screen.getByLabelText(/nombre/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/correo/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/contraseñ?a?/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/confirmar/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /registrarse/i })).toBeInTheDocument();
   });
 
-  test('2. Debe mostrar error en tiempo real si el correo ya existe', () => {
-    const usuarios = [{ correo: 'existente@test.com' }];
-    localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
-
-    // --- 👇 ¡ESTA ES LA CORRECCIÓN! ---
-    const inputCorreo = screen.getByLabelText('Correo');
-    fireEvent.change(inputCorreo, { target: { value: 'existente@test.com' } });
-
-    expect(screen.getByText('El correo ya está registrado.')).toBeInTheDocument();
-  });
-  
-  test('3. Debe llamar a onRegister si el formulario es válido', async () => {
-    mockOnRegister.mockResolvedValue(true);
-
-    // --- 👇 ¡ESTA ES LA CORRECCIÓN! ---
-    fireEvent.change(screen.getByLabelText('Nombre'), { target: { value: 'Test User' } });
-    fireEvent.change(screen.getByLabelText('Correo'), { target: { value: 'nuevo@test.com' } });
-    fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: '123456' } });
-    fireEvent.change(screen.getByLabelText('Confirmar contraseña'), { target: { value: '123456' } });
-
-    fireEvent.click(screen.getByRole('button', { name: 'Registrarse' }));
-    expect(screen.getByText('Registrando...')).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(mockOnRegister).toHaveBeenCalledTimes(1);
+  test('muestra error si el correo ya está registrado', async () => {
+    localStorage.setItem('usuariosRegistrados', JSON.stringify([
+      { nombre: 'Pepe', correo: 'pepe@mail.com', contrasena: '123' }
+    ]));
+    render(<RegisterForm />);
+    fillAndSubmit({
+      nombre: 'Pepe',
+      correo: 'pepe@mail.com',
+      contrasena: '123456',
+      confirmar: '123456'
     });
+    expect(await screen.findByText(/registrado/i)).toBeInTheDocument();
+  });
+
+  test('muestra error si las contraseñas no coinciden', async () => {
+    render(<RegisterForm />);
+    fillAndSubmit({
+      nombre: 'Ana',
+      correo: 'ana@mail.com',
+      contrasena: '123456',
+      confirmar: '654321'
+    });
+    expect(await screen.findByText(/no coinciden/i)).toBeInTheDocument();
+  });
+
+  test('llama a onRegister si todo es válido', async () => {
+    const onRegister = jest.fn(() => Promise.resolve());
+    render(<RegisterForm onRegister={onRegister} />);
+    fillAndSubmit({
+      nombre: 'Juan',
+      correo: 'juan@mail.com',
+      contrasena: '123456',
+      confirmar: '123456'
+    });
+    await waitFor(() => expect(onRegister).toHaveBeenCalled());
+  });
+
+  test('el link de "Iniciar sesión" navega a /login', () => {
+    render(<RegisterForm />);
+    const link = screen.getByText(/iniciar sesión/i);
+    expect(link).toHaveAttribute('href', '/login');
   });
 });

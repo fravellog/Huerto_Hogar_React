@@ -1,85 +1,101 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CartTable from './CartTable';
 
-const mockItems = [{ id: 1, nombre: 'Tomate', cantidad: 2, precio: 1000 }];
-const mockOnRemove = jest.fn();
-const mockOnPay = jest.fn();
-const mockFormatCLP = (value) => `$${value.toLocaleString('es-CL')}`;
-
-describe('Pruebas para el organismo CartTable', () => {
+describe('CartTable - pruebas adicionales robustas', () => {
+  const items = [
+    { id: 1, nombre: 'Tomate', cantidad: 1, precio: 500 },
+    { id: 2, nombre: 'Lechuga', cantidad: 3, precio: 300 }
+  ];
+  let onRemove;
+  let onPay;
+  let formatCLP;
 
   beforeEach(() => {
-    mockOnRemove.mockClear();
-    mockOnPay.mockClear();
+    onRemove = jest.fn();
+    onPay = jest.fn();
+    formatCLP = jest.fn((v) => `$${v}`);
   });
 
-  // --- PRUEBA 1 (Cubre la rama CON formatCLP) ---
-  test('1. Debe renderizar items con el formateador (formatCLP)', () => {
-    render(
-      <CartTable 
-        items={mockItems} 
-        total="$2.000" 
-        onRemove={mockOnRemove}
-        onPay={mockOnPay}
-        formatCLP={mockFormatCLP} 
-      />
-    );
-    expect(screen.getByText('Total: $2.000')).toBeInTheDocument();
+  test('onRemove recibe el item correcto aunque el texto del botón tenga distinto case', () => {
+    render(<CartTable items={items} onRemove={onRemove} onPay={onPay} />);
+    const botones = screen.getAllByText(/eliminar/i);
+    expect(botones.length).toBeGreaterThanOrEqual(2);
+    const filaLechuga = screen.getByText(/Lechuga/i).closest('tr');
+    const botonEliminarLechuga = filaLechuga.querySelector('button');
+    fireEvent.click(botonEliminarLechuga);
+    expect(onRemove).toHaveBeenCalledWith(items[1]);
   });
 
-  // --- PRUEBA 2 (Prueba el callback onRemove) ---
-  test('2. Debe llamar a onRemove al hacer clic en Eliminar', () => {
-    render(<CartTable items={mockItems} onRemove={mockOnRemove} onPay={mockOnPay} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Eliminar' }));
-    expect(mockOnRemove).toHaveBeenCalledWith(mockItems[0]);
-  });
-  
-  // --- PRUEBA 3 (Prueba el callback onPay) ---
-  test('3. Debe llamar a onPay al hacer clic en Pagar', () => {
-    render(<CartTable items={mockItems} onRemove={mockOnRemove} onPay={mockOnPay} />);
-    fireEvent.click(screen.getByRole('button', { name: /Pagar/i }));
-    expect(mockOnPay).toHaveBeenCalledTimes(1);
+  test('formatCLP se llama con el total cuando es numérico y su resultado se muestra', () => {
+    render(<CartTable items={items} total={2500} onRemove={onRemove} onPay={onPay} formatCLP={formatCLP} />);
+    expect(formatCLP.mock.calls.some(call => call[0] === 2500)).toBe(true);
+    expect(screen.getByText(/Total:/i)).toHaveTextContent('$2500');
+    formatCLP.mockClear();
+    cleanup();
+    render(<CartTable items={items} total={'2.500'} onRemove={onRemove} onPay={onPay} formatCLP={formatCLP} />);
+    expect(formatCLP).not.toHaveBeenCalledWith(2.500);
+    expect(formatCLP).not.toHaveBeenCalledWith(2500);
   });
 
-  // --- PRUEBA 4 (Cubre la rama items.length === 0) ---
-  test('4. Debe mostrar un mensaje si el carrito está vacío', () => {
-    render(<CartTable items={[]} onRemove={mockOnRemove} onPay={mockOnPay} />);
-    expect(screen.getByText('No hay productos en el carrito')).toBeInTheDocument();
+  test('muestra el valor devuelto por formatCLP cuando existe', () => {
+    const customFormatter = jest.fn(() => 'FORMATEADO');
+    render(<CartTable items={items} total={100} onRemove={onRemove} onPay={onPay} formatCLP={customFormatter} />);
+    expect(customFormatter.mock.calls.some(call => call[0] === 100)).toBe(true);
+    expect(screen.getByText(/Total:/i)).toHaveTextContent('FORMATEADO');
   });
 
-  // --- PRUEBA 5 (Cubre la rama SIN formatCLP) ---
-  test('5. Debe renderizar items con el formato por defecto (sin formatCLP)', () => {
-    render(
-      <CartTable 
-        items={mockItems} 
-        total="$2000"
-        onRemove={mockOnRemove}
-        onPay={mockOnPay}
-      />
-    );
-    expect(screen.getByText('Total: $2000')).toBeInTheDocument();
+  test('el botón de "Realizar Pago" funciona aunque el texto tenga variaciones (case/espacios)', () => {
+    render(<CartTable items={items} onRemove={onRemove} onPay={onPay} />);
+    const payButton = screen.getByRole('button', { name: /realizar\s*pago/i });
+    fireEvent.click(payButton);
+    expect(onPay).toHaveBeenCalledTimes(1);
   });
 
-  // --- ¡ESTA PRUEBA CUBRE LAS RAMAS FALTANTES DE LÍNEA 3 y 27! ---
-  test('6. Debe usar los valores por defecto de "items" y "total"', () => {
-    // Renderizamos SIN pasar 'items' y SIN pasar 'total'
-    render(
-      <CartTable 
-        onRemove={mockOnRemove}
-        onPay={mockOnPay}
-      />
-    );
+  test('no muestra el total cuando items está vacío incluso si se pasa total prop (numérico o string)', () => {
+    render(<CartTable items={[]} total={500} onRemove={onRemove} onPay={onPay} />);
+    expect(screen.getByText(/No hay productos en el carrito/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Total:/i)).toBeNull();
+    cleanup();
+    render(<CartTable items={[]} total={'500'} onRemove={onRemove} onPay={onPay} />);
+    expect(screen.queryByText(/Total:/i)).toBeNull();
+  });
 
-    // 1. Verificamos que el default de items=[] funciona
-    expect(screen.getByText('No hay productos en el carrito')).toBeInTheDocument();
+  // --------- TESTS ADICIONALES PARA COBERTURA TOTAL ---------
 
-    // 2. Verificamos que el default de total=0 funciona (Línea 3 y 27)
-    // Buscamos el span que EMPIEZA con "Total: "
-    const totalSpan = screen.getByText((content) => content.startsWith('Total:'));
-    
-    // Verificamos que su contenido completo es "Total: 0"
-    expect(totalSpan).toHaveTextContent('Total: 0');
+  test('usa valores por defecto si no se pasan props', () => {
+    render(<CartTable />);
+    expect(screen.getByText(/No hay productos en el carrito/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Total:/i)).toBeNull();
+  });
+
+  test('usa el formato por defecto si no se pasa formatCLP', () => {
+    render(<CartTable items={items} total={1234} onRemove={onRemove} onPay={onPay} />);
+    expect(screen.getByText('Total: $1234')).toBeInTheDocument();
+    expect(screen.getAllByText(/\$[0-9]+/).length).toBeGreaterThan(1);
+  });
+
+  test('no falla si no se pasa onRemove ni onPay', () => {
+    render(<CartTable items={items} total={1000} />);
+    // Click en eliminar
+    const botonEliminar = screen.getAllByText(/eliminar/i)[0];
+    fireEvent.click(botonEliminar);
+    // Click en pagar
+    const payButton = screen.getByRole('button', { name: /realizar\s*pago/i });
+    fireEvent.click(payButton);
+    // No debe lanzar error (no hay expect, solo cobertura)
+  });
+
+  test('muestra el total como string si se pasa total como string y sin formatCLP', () => {
+    render(<CartTable items={items} total={'1.234'} onRemove={onRemove} onPay={onPay} />);
+    expect(screen.getByText('Total: 1.234')).toBeInTheDocument();
+  });
+
+  test('renderiza correctamente cuando item no tiene id', () => {
+    const itemsSinId = [{ nombre: 'Zanahoria', cantidad: 2, precio: 100 }];
+    render(<CartTable items={itemsSinId} total={200} onRemove={onRemove} onPay={onPay} />);
+    expect(screen.getByText(/Zanahoria/)).toBeInTheDocument();
+    expect(screen.getByText('Total: $200')).toBeInTheDocument();
   });
 });

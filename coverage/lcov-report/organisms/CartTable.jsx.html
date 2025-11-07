@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -110,33 +110,48 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,9 +172,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 &nbsp;
 export default function CartTable({ items = [], total = 0, onRemove, onPay, formatCLP }) {
+  const mostrarTotal = items.length &gt; 0;
+&nbsp;
+  // Formatea el total si corresponde
+  const totalFormateado = formatCLP
+    ? (typeof total === 'number' ? formatCLP(total) : total)
+    : (typeof total === 'number' ? `$${total}` : total);
+&nbsp;
   return (
     &lt;div className="cart-card" style={{ background: '#fafafa', borderRadius: 18, boxShadow: '0 4px 24px rgba(60,185,23,0.10)', padding: 32, maxWidth: 600, margin: '0 auto' }}&gt;
       &lt;h2 style={{ fontWeight: 700, fontSize: 26, color: '#222', marginBottom: 18 }}&gt;Carrito de compras&lt;/h2&gt;
@@ -183,7 +206,7 @@ export default function CartTable({ items = [], total = 0, onRemove, onPay, form
               &lt;/tr&gt;
             ) : (
               items.map((item, idx) =&gt; (
-                &lt;tr key={item.id || <span class="branch-1 cbranch-no" title="branch not covered" >idx}</span> style={{ background: idx % 2 === 0 ? '#f5f5f5' : <span class="branch-1 cbranch-no" title="branch not covered" >'#fff' </span>}}&gt;
+                &lt;tr key={item.id || idx} style={{ background: idx % 2 === 0 ? '#f5f5f5' : '#fff' }}&gt;
                   &lt;td style={{ padding: '10px 8px', fontWeight: 500 }}&gt;{item.nombre}&lt;/td&gt;
                   &lt;td style={{ padding: '10px 8px', textAlign: 'center' }}&gt;{item.cantidad}&lt;/td&gt;
                   &lt;td style={{ padding: '10px 8px', textAlign: 'center' }}&gt;{formatCLP ? formatCLP(item.precio) : `$${item.precio}`}&lt;/td&gt;
@@ -197,21 +220,22 @@ export default function CartTable({ items = [], total = 0, onRemove, onPay, form
           &lt;/tbody&gt;
         &lt;/table&gt;
       &lt;/div&gt;
-      &lt;div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 24 }}&gt;
-        &lt;span style={{ fontWeight: 700, fontSize: 20, color: '#388E3C', marginRight: 24 }}&gt;Total: {total}&lt;/span&gt;
-        &lt;button onClick={onPay} style={{ background: '#43a047', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 32px', fontWeight: 600, fontSize: 17, boxShadow: '0 2px 8px rgba(60,185,23,0.10)', cursor: 'pointer' }}&gt;Realizar pago&lt;/button&gt;
-      &lt;/div&gt;
+      {mostrarTotal &amp;&amp; (
+        &lt;div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 24 }}&gt;
+          &lt;span style={{ fontWeight: 700, fontSize: 20, color: '#388E3C', marginRight: 24 }}&gt;Total: {totalFormateado}&lt;/span&gt;
+          &lt;button onClick={onPay} style={{ background: '#43a047', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 32px', fontWeight: 600, fontSize: 17, boxShadow: '0 2px 8px rgba(60,185,23,0.10)', cursor: 'pointer' }}&gt;Realizar pago&lt;/button&gt;
+        &lt;/div&gt;
+      )}
     &lt;/div&gt;
   );
-}
-&nbsp;</pre></td></tr></table></pre>
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-07T05:11:46.636Z
+                at 2025-11-07T19:49:27.244Z
             </div>
         <script src="../prettify.js"></script>
         <script>
