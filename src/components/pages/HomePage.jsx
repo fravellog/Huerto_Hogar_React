@@ -3,7 +3,7 @@ import FeaturedProducts from '../organisms/FeaturedProducts';
 import Banner from '../organisms/Banner';
 import { Link } from 'react-router-dom'; // Para el enlace del botón
 import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
  
  
 // Datos de ejemplo

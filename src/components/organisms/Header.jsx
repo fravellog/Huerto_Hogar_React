@@ -1,7 +1,7 @@
 import Logo from '../atoms/Logo';
 import NavLink from '../atoms/NavLink';
 import { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import Banner from './Banner';
  
  

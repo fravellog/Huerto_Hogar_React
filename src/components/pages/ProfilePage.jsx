@@ -3,7 +3,7 @@
 import MainLayout from '../templates/MainLayout';
 import Title from '../atoms/Title';
 import { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 

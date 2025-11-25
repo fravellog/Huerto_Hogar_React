@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 // --- 👇 ¡ASEGÚRATE DE QUE ESTA RUTA SEA CORRECTA! ---
 // Esta es la ruta desde test-utils.js hasta tu AuthContext.js
-import { AuthContext } from './context/AuthContext'; // (¡Ajusta esta ruta!)
+import { AuthContext } from './components/context/AuthContext'; // Ruta corregida
 
 // Este es el wrapper
 const AllTheProviders = ({ children, authValue }) => {

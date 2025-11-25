@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './components/context/AuthContext';
 
 // Importa tus páginas
 import HomePage from './components/pages/HomePage';
