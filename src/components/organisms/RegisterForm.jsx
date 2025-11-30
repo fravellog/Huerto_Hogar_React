@@ -60,7 +60,15 @@ export default function RegisterForm({ onRegister = () => Promise.resolve() }) {
         usuarios.push({ nombre, correo, contrasena });
         localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
       } catch (storageErr) {
-        setError(storageErr && storageErr.message ? storageErr.message : 'Error al registrarse.');
+        let msg = 'Error al registrarse.';
+        if (storageErr && typeof storageErr === 'object') {
+          if (typeof storageErr.message === 'string' && storageErr.message.trim()) {
+            msg = storageErr.message;
+          }
+        } else if (typeof storageErr === 'string' && storageErr.trim()) {
+          msg = storageErr;
+        }
+        setError(msg);
         setLoading(false);
         return;
       }
@@ -73,7 +81,15 @@ export default function RegisterForm({ onRegister = () => Promise.resolve() }) {
       setError('');
       setCorreoRegistrado(false);
     } catch (err) {
-      setError(err && err.message ? err.message : 'Error al registrarse.');
+      let msg = 'Error al registrarse.';
+      if (err && typeof err === 'object') {
+        if (typeof err.message === 'string' && err.message.trim()) {
+          msg = err.message;
+        }
+      } else if (typeof err === 'string' && err.trim()) {
+        msg = err;
+      }
+      setError(msg);
     } finally {
       setLoading(false);
     }

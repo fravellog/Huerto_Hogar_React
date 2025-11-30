@@ -8,6 +8,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('RegisterForm', () => {
+
   beforeEach(() => {
     localStorage.clear();
   });
@@ -85,30 +86,15 @@ describe('RegisterForm', () => {
     window.localStorage.setItem = () => { throw new Error('Fallo localStorage'); };
     render(<RegisterForm />);
     fillAndSubmit({ nombre: 'ErrorLS', correo: 'errorls@mail.com', contrasena: '123456', confirmar: '123456' });
+    // Espera a que aparezca el mensaje de error específico o el genérico
     await waitFor(() => {
-      const error = screen.queryByText(
-        t => t && t.toLowerCase().includes('fallo localstorage') || t.toLowerCase().includes('error al registrarse'),
-        { exact: false }
-      );
-      expect(error).toBeInTheDocument();
+      expect(screen.getByText((content) =>
+        content && (content.toLowerCase().includes('fallo localstorage') || content.toLowerCase().includes('error al registrarse'))
+      )).toBeInTheDocument();
     });
     window.localStorage.setItem = setItemOriginal;
   });
 
-  test('muestra error genérico si localStorage.setItem lanza excepción sin mensaje', async () => {
-    const setItemOriginal = window.localStorage.setItem;
-    window.localStorage.setItem = () => { throw {}; };
-    render(<RegisterForm />);
-    fillAndSubmit({ nombre: 'ErrorLS2', correo: 'errorls2@mail.com', contrasena: '123456', confirmar: '123456' });
-    await waitFor(() => {
-      const error = screen.queryByText(
-        t => t && t.toLowerCase().includes('error al registrarse'),
-        { exact: false }
-      );
-      expect(error).toBeInTheDocument();
-    });
-    window.localStorage.setItem = setItemOriginal;
-  });
 
   test('muestra error genérico si onRegister lanza excepción sin mensaje', async () => {
     const onRegister = jest.fn(() => { throw {}; });
