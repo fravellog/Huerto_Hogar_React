@@ -3,10 +3,11 @@ import MainLayout from '../templates/MainLayout';
 import Title from '../atoms/Title';
 import CartTable from '../organisms/CartTable';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartPage() {
-  // Estado del carrito conectado a localStorage
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const actualizarCarrito = () => {
@@ -28,16 +29,13 @@ export default function CartPage() {
     localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
   };
 
+  // Redirigir a la página de Simular Pago
   const handlePay = () => {
-    alert('Pago realizado');
-    setItems([]);
-    localStorage.setItem('carrito', '[]');
+    navigate('/simular-pago');
   };
 
-  // Formatear precios en CLP
   const formatCLP = (valor) => valor.toLocaleString('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
 
-  // Pasar formateador a CartTable
   return (
     <MainLayout>
       <Title level="h1" className="text-center mb-8">Carrito de Compras</Title>

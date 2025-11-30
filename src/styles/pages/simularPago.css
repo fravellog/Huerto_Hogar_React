@@ -1,0 +1,33 @@
+.simular-pago-flex-center {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.simular-pago-card {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fafafa;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(60,185,23,0.10);
+  padding: 32px;
+}
+
+.simular-pago-card input {
+  color: #222 !important;
+  background: #fff;
+}
+
+.simular-pago-feedback {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 500;
+}
+.simular-pago-feedback.exito {
+  color: #388E3C;
+}
+.simular-pago-feedback.error {
+  color: #e74c3c;
+}

@@ -11,6 +11,7 @@ import ProfilePage from './components/pages/ProfilePage';
 import LoginPage from './components/pages/LoginPage';
 import RegisterPage from './components/pages/RegisterPage';
 import NotFoundPage from './components/pages/NotFoundPage'; // Página para rutas no encontradas
+import SimularPago from './components/pages/SimularPago';
 
 function App() {
   return (
@@ -23,7 +24,9 @@ function App() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/contacto" element={<ContactPage />} />
           <Route path="/carrito" element={<CartPage />} />
+
           <Route path="/perfil" element={<ProfilePage />} />
+          <Route path="/simular-pago" element={<SimularPago />} />
 
           {/* Rutas que podrían tener un layout diferente (sin Header/Footer) */}
           <Route path="/login" element={<LoginPage />} />
