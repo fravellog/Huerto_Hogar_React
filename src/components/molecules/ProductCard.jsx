@@ -5,6 +5,12 @@ import Button from '../atoms/Button';
 export default function ProductCard({ product }) {
   const { id, nombre, precio, imagen } = product;
 
+  // Formato de precio: "Precio: $1.610/kg"
+  function formatearPrecio(valor) {
+    if (typeof valor !== 'number') return valor;
+    return `Precio: $${valor.toLocaleString('es-CL')}\/kg`;
+  }
+
   const handleAddToCartClick = () => {
     const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
     const idx = carrito.findIndex(p => p.id === id);
@@ -22,7 +28,7 @@ export default function ProductCard({ product }) {
     <div className="producto-card">
       <Image src={imagen} alt={nombre} className="producto-img" />
       <h3>{nombre}</h3>
-      <h4 className="precio">{precio}</h4>
+      <h4 className="precio">{formatearPrecio(precio)}</h4>
       <Button onClick={handleAddToCartClick} className="agregar-carrito">
         Agregar al carrito
       </Button>

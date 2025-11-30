@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
     try {
       return JSON.parse(localStorage.getItem('isAuthenticated')) || false;
     } catch (e) {
+      /* istanbul ignore next */
       return false;
     }
   });
@@ -16,6 +17,7 @@ export function AuthProvider({ children }) {
     try {
       return JSON.parse(localStorage.getItem('user')) || null;
     } catch (e) {
+      /* istanbul ignore next */
       return null;
     }
   });

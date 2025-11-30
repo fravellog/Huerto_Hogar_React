@@ -33,12 +33,32 @@ const dispatchEventMock = jest.spyOn(window, 'dispatchEvent').mockImplementation
 const mockProduct = {
   id: 1,
   nombre: 'Tomate',
-  precio: '$1.000',
+  precio: 1610,
   imagen: '/img/tomate.jpg'
 };
 // ------------------------------
 
 describe('Pruebas para la molécula ProductCard', () => {
+
+  test('4. Muestra el precio formateado correctamente', () => {
+    render(<ProductCard product={mockProduct} />);
+    expect(screen.getByText('Precio: $1.610/kg')).toBeInTheDocument();
+  });
+
+  test('5. Muestra el precio tal cual si no es número', () => {
+    const prod = { ...mockProduct, precio: 'Precio especial' };
+    render(<ProductCard product={prod} />);
+    expect(screen.getByText('Precio especial')).toBeInTheDocument();
+  });
+
+  test('6. No rompe si localStorage.setItem lanza error', () => {
+    const originalSetItem = window.localStorage.setItem;
+    window.localStorage.setItem = () => { throw new Error('fail'); };
+    render(<ProductCard product={mockProduct} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Agregar al carrito' }));
+    // El test pasa si no se lanza excepción
+    window.localStorage.setItem = originalSetItem;
+  });
 
   // Limpiamos los mocks después de CADA prueba
   beforeEach(() => {
@@ -51,7 +71,7 @@ describe('Pruebas para la molécula ProductCard', () => {
     render(<ProductCard product={mockProduct} />);
 
     expect(screen.getByRole('heading', { name: 'Tomate' })).toBeInTheDocument();
-    expect(screen.getByText('$1.000')).toBeInTheDocument();
+    expect(screen.getByText('Precio: $1.610/kg')).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('alt', 'Tomate');
     expect(screen.getByRole('button', { name: 'Agregar al carrito' })).toBeInTheDocument();
   });

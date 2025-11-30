@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for atoms/Title.jsx</title>
+    <title>Code coverage report for src/test-utils.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">atoms</a> Title.jsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> test-utils.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -85,58 +85,79 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export default function Title({ children, level = <span class="branch-0 cbranch-no" title="branch not covered" >"h2",</span> className = <span class="branch-0 cbranch-no" title="branch not covered" >"" </span>}) {
-  // 1. Lista de etiquetas de encabezado válidas
-  const validLevels = ["h1", "h2", "h3", "h4", "h5", "h6"];
-  
-  // 2. Si el 'level' es válido, úsalo. Si no (ej: "h7"), usa "h2" como TAG.
-  const Tag = validLevels.includes(level) ? level : <span class="branch-1 cbranch-no" title="branch not covered" >"h2"; </span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/test-utils.js
+import React from 'react';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { AuthContext } from './components/context/AuthContext';
 &nbsp;
-  // Clases base (basado en tu snippet)
-  const baseStyle = "font-bold text-green-700";
-  
-  // 3. Lógica de clases (esta ya cubría el fallback)
-  const levelStyles = {
-    h1: "text-4xl mb-4",
-    h2: "text-3xl mb-3",
-    h3: "text-2xl mb-2",
-    h4: "text-xl mb-1",
-    h5: "text-lg",
-    h6: "text-base",
-  };
-  
-  // 4. Renderiza usando el Tag validado y la lógica de clases
-  return &lt;Tag className={`${baseStyle} ${levelStyles[level] || <span class="branch-1 cbranch-no" title="branch not covered" >levelStyles.h2}</span> ${className}`}&gt;{children}&lt;/Tag&gt;;
-}</pre></td></tr></table></pre>
+// Valores por defecto para AuthContext
+const defaultAuth = {
+	isAuthenticated: false,
+	user: null,
+	login: jest.fn(),
+	logout: jest.fn(),
+};
+&nbsp;
+// Wrapper global para tests: MemoryRouter + AuthContext
+const Wrapper = ({ children, authProps }) =&gt; (
+	&lt;MemoryRouter&gt;
+		&lt;AuthContext.Provider value={authProps || defaultAuth}&gt;
+			{children}
+		&lt;/AuthContext.Provider&gt;
+	&lt;/MemoryRouter&gt;
+);
+&nbsp;
+const customRender = (ui, options = {}) =&gt; {
+	const { authProps, ...rest } = options;
+	return render(ui, { wrapper: (props) =&gt; &lt;Wrapper {...props} authProps={authProps} /&gt;, ...rest });
+};
+&nbsp;
+export * from '@testing-library/react';
+export { customRender as render };</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-30T21:29:23.095Z
+                at 2025-11-30T21:30:16.919Z
             </div>
         <script src="../prettify.js"></script>
         <script>

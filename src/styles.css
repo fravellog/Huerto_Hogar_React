@@ -598,6 +598,7 @@ a, button { -webkit-tap-highlight-color: rgba(0,0,0,0.05); }
     font-size: 17px;
     width: 100%;
     outline: none;
+    color: #222;
 }
 /* Estilos para formularios elegantes en registro e inicio de sesión */
 .campo label {

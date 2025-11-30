@@ -56,8 +56,14 @@ export default function RegisterForm({ onRegister = () => Promise.resolve() }) {
     setLoading(true);
     try {
       // Guardar usuario en localStorage (solo para demo, no seguro en producción)
-      usuarios.push({ nombre, correo, contrasena });
-      localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+      try {
+        usuarios.push({ nombre, correo, contrasena });
+        localStorage.setItem('usuariosRegistrados', JSON.stringify(usuarios));
+      } catch (storageErr) {
+        setError(storageErr && storageErr.message ? storageErr.message : 'Error al registrarse.');
+        setLoading(false);
+        return;
+      }
       await onRegister({ nombre, correo, contrasena });
       // Limpiar campos tras registro exitoso para cubrir ese flujo
       setNombre('');
@@ -67,7 +73,7 @@ export default function RegisterForm({ onRegister = () => Promise.resolve() }) {
       setError('');
       setCorreoRegistrado(false);
     } catch (err) {
-      setError(err.message || 'Error al registrarse.');
+      setError(err && err.message ? err.message : 'Error al registrarse.');
     } finally {
       setLoading(false);
     }
@@ -133,7 +139,7 @@ export default function RegisterForm({ onRegister = () => Promise.resolve() }) {
           />
         </div>
       </div>
-      {error && <p id="mensaje" style={{ color: '#d93025', textAlign: 'center', marginTop: 8 }}>{error}</p>}
+      {error && <p id="mensaje" data-testid="mensaje" style={{ color: '#d93025', textAlign: 'center', marginTop: 8 }}>{error}</p>}
       <button type="submit" id="btn-registro" className="btn" disabled={loading}>
         {loading ? 'Registrando...' : 'Registrarse'}
       </button>

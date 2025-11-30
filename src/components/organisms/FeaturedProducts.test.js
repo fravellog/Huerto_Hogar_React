@@ -10,6 +10,15 @@ const mockProducts = [
 ];
 
 describe('Pruebas para el organismo FeaturedProducts', () => {
+  test('3. No debe renderizar NADA si products es null', () => {
+    const { container } = render(<FeaturedProducts products={null} />);
+    expect(container.firstChild).toBeNull();
+  });
+
+  test('4. No debe renderizar NADA si no se pasa la prop products', () => {
+    const { container } = render(<FeaturedProducts />);
+    expect(container.firstChild).toBeNull();
+  });
 
   test('1. Debe renderizar un ProductCard por cada producto', () => {
     // Renderizamos CON el wrapper
@@ -22,7 +31,7 @@ describe('Pruebas para el organismo FeaturedProducts', () => {
   });
 
   test('2. No debe renderizar NADA si no hay productos', () => {
-    render(<FeaturedProducts products={[]} />);
+    const { container } = render(<FeaturedProducts products={[]} />);
     expect(container.firstChild).toBeNull();
-  });
+  })
 });
