@@ -1,6 +1,7 @@
 import Logo from '../atoms/Logo';
 import NavLink from '../atoms/NavLink';
 import { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Banner from './Banner';
  
@@ -8,6 +9,13 @@ import Banner from './Banner';
 export default function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    setMenuOpen(false);
+    navigate('/login');
+  };
 
   const toggleMenu = () => setMenuOpen(v => !v);
 
@@ -49,7 +57,7 @@ export default function Header() {
               <NavLink to="/carrito" className="nav-link">🛒 Carrito</NavLink>
               <button
                 className="nav-link"
-                onClick={() => { logout(); setMenuOpen(false); }}
+                onClick={handleLogout}
                 aria-label="Cerrar sesión"
               >
                 🚪 Cerrar sesión
@@ -79,7 +87,7 @@ export default function Header() {
                 <NavLink to="/carrito" className="nav-link">🛒 Carrito</NavLink>
                 <button
                   className="nav-link"
-                  onClick={() => { logout(); setMenuOpen(false); }}
+                  onClick={handleLogout}
                   aria-label="Cerrar sesión"
                 >
                   🚪 Cerrar sesión
