@@ -16,6 +16,11 @@ function ProfilePage() {
   const [correo, setCorreo] = useState(user?.correo || '');
   const [foto, setFoto] = useState(user?.foto || '');
   const [fotoFile, setFotoFile] = useState(null);
+  // Dirección separada
+  const [calle, setCalle] = useState(user?.calle || '');
+  const [numeroDir, setNumeroDir] = useState(user?.numeroDir || '');
+  const [ciudad, setCiudad] = useState(user?.ciudad || '');
+  const [region, setRegion] = useState(user?.region || '');
 
   useEffect(() => {
     if (!user) {
@@ -27,6 +32,10 @@ function ProfilePage() {
     setNombre(user?.nombre || '');
     setCorreo(user?.correo || '');
     setFoto(user?.foto || '');
+    setCalle(user?.calle || '');
+    setNumeroDir(user?.numeroDir || '');
+    setCiudad(user?.ciudad || '');
+    setRegion(user?.region || '');
   }, [user]);
 
   const handleEdit = () => setShowModal(true);
@@ -46,9 +55,17 @@ function ProfilePage() {
 
   const handleSave = (e) => {
     e.preventDefault();
-    // No permitimos cambiar el correo desde el perfil una vez logeado.
-    // Conservamos el correo original de `user` y permitimos actualizar nombre/foto.
-    login({ ...user, nombre, correo: user?.correo || correo, foto });
+    // Guardar dirección separada en el usuario
+    login({
+      ...user,
+      nombre,
+      correo: user?.correo || correo,
+      foto,
+      calle,
+      numeroDir,
+      ciudad,
+      region
+    });
     setShowModal(false);
   };
 
@@ -109,6 +126,11 @@ function ProfilePage() {
               <div style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #eee', background: '#fafafa', color: '#666', fontSize: 16, marginBottom: 4 }} aria-live="polite">
                 {user?.correo}
               </div>
+              {/* Dirección separada */}
+              <input type="text" placeholder="Calle" value={calle} onChange={e => setCalle(e.target.value)} style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #dadce0', fontSize: 16, marginBottom: 4 }} required />
+              <input type="text" placeholder="Número" value={numeroDir} onChange={e => setNumeroDir(e.target.value)} style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #dadce0', fontSize: 16, marginBottom: 4 }} required />
+              <input type="text" placeholder="Ciudad" value={ciudad} onChange={e => setCiudad(e.target.value)} style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #dadce0', fontSize: 16, marginBottom: 4 }} required />
+              <input type="text" placeholder="Región" value={region} onChange={e => setRegion(e.target.value)} style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #dadce0', fontSize: 16, marginBottom: 4 }} required />
               <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
                 <button type="button" className="btn" style={{ background: '#bbb', color: '#fff' }} onClick={handleClose}>Cancelar</button>
                 <button type="submit" className="btn" style={{ background: '#4CAF50', color: '#fff' }}>Guardar</button>
